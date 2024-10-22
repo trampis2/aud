@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Drag and Drop</title>
+
+</head>
+<body>
+    <div class="sortable-container">
+        <div class="left-sortable-container">           
+            <h3>Contenedor de auditorías</h3>
+            <ul id="contenedor-auditorias" class="audit-nested-list">
+                {% for auditoria_nombre, auditoria_data in asignaciones.items %}
+                    <li data-id="{{ auditoria_data.id }}">
+                        <ul class="auditoria-rol-recurso-call sortable-list">
+                            {{ auditoria_nombre }}
+                            {% for rol_nombre, rol_data in auditoria_data.roles.items %}
+                                <li data-role-id="{{ rol_data.id }}">
+                                    {{ rol_nombre }}
+                                    <ul class="nested-list empleados"> <!-- Lista de empleados -->
+                                        {% for recurso in rol_data.recursos %}
+                                            <li data-employee-id="{{ recurso.id }}">
+                                                {{ recurso.nombre }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="right-sortable-container">
+            <h3>Roles</h3>
+            <ul id="roles" class="sortable-list">
+                {% for rol in roles %}
+                    <li data-role-id="{{ rol.id }}">{{ rol.nombre }}</li>
+                {% endfor %}
+            </ul>
+            <ul id="auditorias" class="sortable-list">
+                {% for i in auditorias %}
+                    <li data-id="{{ i.id }}" >
+                        <ul class="auditoria sortable-list">{{ i.nombre }}</ul>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="middle-sortable-container">
+                <li class="sortable-list area-team-recursos">
+                    <h1>Áreas, Teams y Recursos</h1>
+                    {% for area in areas %}
+                        <ul>{{ area.nombre }}</ul>
+                        <ul>
+                            {% for team in area.team.all %}
+                                <li>
+                                    <strong>{{ team.nombre_team }}</strong>
+                                    <ul class="empleados sortable-list">
+                                        {% for recurso in team.recursos.all %}
+                                            <li data-employee-id="{{ recurso.id }}">{{ recurso.nombre }}</li>
+                                        {% empty %}
+                                            No hay recursos asignados
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% empty %}
+                                No hay equipos en esta área
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </li>
+            </div>
+        </div>
+        <div class="right-section">
+            <div id="trash-bin">Basurero</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="{% static 'js/asignar_auditoria.js' %}"></script>
+</body>
+</html>
+

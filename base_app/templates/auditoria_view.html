@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Auditorías y Recursos</title>
+</head>
+<body>
+    <div class="sortable-container">
+        <div class="left-sortable-container">
+            <h3>Contenedor de auditorías</h3>
+            <ul id="contenedor-auditorias" class="audit-nested-list">
+                {% for auditoria in auditorias %}
+                    <li data-id="{{ auditoria.id }}">
+                        <span>{{ auditoria.nombre }}</span>
+                        <ul class="nested-list">
+                            {% for rol in roles %}
+                                <li data-role-id="{{ rol.id }}">{{ rol.nombre }}
+                                    <ul class="nested-list">
+                                        {% for asignacion in asignaciones %}
+                                            {% if asignacion.auditoria.id == auditoria.id and asignacion.rol.id == rol.id %}
+                                                <li data-employee-id="{{ asignacion.recurso.id }}">{{ asignacion.recurso.nombre }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="right-sortable-container">
+            <h3>Roles</h3>
+            <ul id="roles" class="sortable-list">
+                {% for rol in roles %}
+                    <li data-role-id="{{ rol.id }}">{{ rol.nombre }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Auditorías</h3>
+            <ul id="auditorias" class="sortable-list">
+                {% for auditoria in auditorias %}
+                    <li data-id="{{ auditoria.id }}">
+                        <span>{{ auditoria.nombre }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="right-section">
+            <div id="trash-bin">Basurero</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="{% static 'js/asignar_auditoria.js' %}"></script>
+</body>
+</html>

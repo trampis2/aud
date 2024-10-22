@@ -1,0 +1,216 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    height: 100%;
+    
+}
+body{
+    min-height: 100%;
+    background: linear-gradient(120deg,#C8D3F8 11%,#F5E0E0 69%,#FFDEDE 100%) ;
+}
+.grid-container > *{
+    padding: 10px;
+    text-align: center;
+}
+.header{
+    grid-area:header;
+    background-color: transparent;
+    
+}
+.header-flex-container{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 8px;
+    margin-top: 6px;
+    
+}
+.sidebar{
+    grid-area:sidebar;
+    background-color: transparent;
+}
+.sidebar-left-button{
+    transform: rotate(180deg);
+}
+.sidebar-left-button,
+.offcantas-btn-close{
+    font-size: 2.5rem;
+
+}
+.offcantas-btn-close:hover{
+    cursor: pointer;
+}
+.offcanvas{
+    background-color: #292828 !important;
+}
+.offcanvas-link h5{
+    display: flex;
+    align-items: end !important; /* Alinea verticalmente los elementos */
+    gap: 10px;
+  }
+
+.offcanvas-body-list{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0;
+}
+.offcanvas-body-list li{
+    margin-top: 2.4rem;
+}
+.offcanvas-body-list li a h5{
+    padding-top: .3rem;
+}
+
+
+.sidebar-menu-list{
+    list-style-type: none;
+}
+.sidebar-menu-list li a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.offcanvas-body-list li a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    
+    
+}
+.offcanvas-body-list li a svg{
+    margin-right: 1.2rem;
+    
+}
+.offcanvas-body-list h5{
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+.offcanvas-icon-list-text{
+    color: #CBCBCB;
+}
+.main{
+    grid-area:main;
+    background-color: #fafafa;
+    /* background-color: transparent; */
+    border-left: 2px solid #302E2E;
+    border-top: 2px solid #302E2E;
+    border-radius: 10px 0 0 0;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-rows: 4.5rem auto;
+    grid-template-columns: 20px auto;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+    ;
+}
+.sortable-container {
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+}
+#contenedor-auditorias {
+    /* height: 100vh; */
+    margin-right: 10px;
+}
+.right-section {
+    display: flex;
+    flex-direction: column;
+}
+.left-sortable-container,
+.middle-sortable-container,
+.right-sortable-container {
+    width: 33%;
+}
+.sortable-list, .nested-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.sortable-list li, .nested-list li {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: grab;
+}
+#trash-bin {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    display: none;
+    margin: 20px;
+}
+.area-team-recursos{
+    width: 500px;
+}
+.open-close-sidebar,
+.sidebar-menu-list{
+    display: none ;
+}
+@media (min-width:900px){
+    .offcanvas-mobile,
+    .offcanvas,
+    .offcanvas-backdrop{
+        display: none !important;
+    }
+    .open-close-sidebar,
+    .sidebar-menu-list{
+        display: block ;
+    }
+    .grid-container{
+        grid-template-columns:5rem auto;
+        grid-template-rows:70px auto;
+        grid-template-areas:
+            "header header"
+            "sidebar main"
+        ;
+    }    
+    .sidebar{
+        padding:0;
+    }
+    .open-close-sidebar{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+    
+    .sidebar-menu-list{
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar-menu-list li{
+        margin-bottom: 1.2rem;
+    }
+
+}
+/*
+@media (min-width:900px){
+    .grid-container{
+        grid-template-columns:200px auto 200px;
+        grid-template-rows:100px auto 100px;
+        grid-template-areas:
+            "header header header"
+            "sidebar main main"
+        ;
+    }
+}
+/*

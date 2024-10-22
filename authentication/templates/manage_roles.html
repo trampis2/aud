@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Permisos de Roles</title>
+    <style>
+        .permissions-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .permissions-list {
+            width: 45%;
+        }
+        .permissions-list select {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gestionar Permisos de Roles</h1>
+
+<!-- Selección de grupo (rol) -->
+<form method="GET">
+    <label for="group">Seleccionar Rol:</label>
+    <select name="group" id="group" onchange="this.form.submit()">
+        <option value="">Selecciona un rol</option>
+        {% for g in groups %}
+            <option value="{{ g.id }}" {% if group and g.id == group.id %}selected{% endif %}>{{ g.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<!-- Formulario para asignar permisos al grupo seleccionado -->
+{% if group %}
+    <h2>Asignar Permisos al Rol: {{ group.name }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="permissions-container">
+            <!-- Lista de permisos no asignados -->
+            <div class="permissions-list">
+                <h3>Permisos Disponibles</h3>
+                <select multiple name="permissions">
+                    {% for permission in unassigned_permissions %}
+                        <option value="{{ permission.id }}">{{ permission.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Lista de permisos asignados -->
+            <div class="permissions-list">
+                <h3>Permisos Asignados</h3>
+                <select multiple disabled>
+                    {% for permission in assigned_permissions %}
+                        <option>{{ permission.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit">Guardar Permisos</button>
+    </form>
+{% endif %}
+
+</body>
+</html>

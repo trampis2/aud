@@ -1,0 +1,37 @@
+from django.urls import path
+from .views import (
+    index,
+    administrador,
+    activos,
+    areas,
+    calendario,
+    configuracion,
+    conocimiento_base,
+    diagramas,
+    objetivos_de_control,
+    pruebas,
+    planificacion,
+    actividades,
+    auditoria_view,
+    sortabblejs,
+    asignar_recurso_auditoria,
+)
+
+urlpatterns = [
+    path('', index, name='index'),
+    path('index/', index, name='index'),
+    path('administrador/', administrador, name='administrador'),
+    path('activos/', activos, name='activos'),
+    path('actividades/', actividades, name='actividades'),
+    path('areas/', areas, name='areas'),
+    path('calendario/', calendario, name='calendario'),
+    path('configuracion/', configuracion, name='configuracion'),
+    path('conocimiento-base/', conocimiento_base, name='conocimiento_base'),
+    path('diagramas/', diagramas, name='diagramas'),
+    path('objetivos-control/', objetivos_de_control, name='objetivos_de_control'),
+    path('pruebas/', pruebas, name='pruebas'),
+    path('planificacion/', planificacion, name='planificacion'),
+    path('auditoria_view/', auditoria_view, name='auditoria_view'),
+    path('sortabblejs/', sortabblejs, name='sortabblejs'),
+    path('asignar/', asignar_recurso_auditoria, name='asignar_recurso_auditoria'),
+]
